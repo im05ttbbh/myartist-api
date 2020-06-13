@@ -1,24 +1,47 @@
-# README
+# 下準備
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+```bash
+git clone https://github.com/im05ttbbh/myartist-api.git
+cd myartist-api
+bundle install
+rails db:seed
+rails db:migrate
+```
 
-Things you may want to cover:
+# 使用技術
 
-* Ruby version
+- Ruby 2.5.1
+- Rails 6.0.2（APIモード）
+- RSpec
+- rubocop
+- FactoryBot
 
-* System dependencies
+# アーティスト登録
 
-* Configuration
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"artist":{"genre_content":"（ジャンル）", "artist":"（アーティスト）"}}' localhost:3000/artists
+```
+【例】
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"artist":{"genre_content":"POPS", "artist":"宇多田ヒカル"}}' localhost:3000/artists
+```
 
-* Database creation
+# アーティスト取得
 
-* Database initialization
+```bash
+curl http://localhost:3000/artists
+```
+【アーティスト取得パラメーター例】
+```bash
+{
+    "artist": {
+        "genre_content": "ROCK"
+    }
+}
+```
 
-* How to run the test suite
+# RSpecによるテスト
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```bash
+bundle exec rspec
+```
