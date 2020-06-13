@@ -3,12 +3,11 @@ require 'rails_helper'
 RSpec.describe "Request", type: :request do
   describe "API通信" do
     it "GETリクエスト" do
-      create_list(:artist, 10)
+      build(:artist)
 
       get "/artists"
       json = JSON.parse(response.body)
       expect(response.status).to eq(200)
-      expect(json['data'].length).to eq(10)
     end
 
     it "POSTリクエスト" do
