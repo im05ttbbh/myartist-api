@@ -27,12 +27,23 @@ curl -X POST -H "Content-Type: application/json" -d '{"artist":{"genre_content":
 curl -X POST -H "Content-Type: application/json" -d '{"artist":{"genre_content":"POPS", "artist":"宇多田ヒカル"}}' localhost:3000/artists
 ```
 
+【アーティスト登録パラメーター例（POST）】
+```bash
+{
+    "artist": {
+        "genre_content":"POPS",
+        "artist":"宇多田ヒカル"
+    }
+}
+```
+
 # アーティスト取得
 
 ```bash
 curl http://localhost:3000/artists
 ```
-【アーティスト取得パラメーター例】
+
+【アーティスト取得パラメーター例（GET）】
 ```bash
 {
     "artist": {
