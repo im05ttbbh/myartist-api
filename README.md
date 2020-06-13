@@ -6,6 +6,7 @@ cd myartist-api
 bundle install
 rails db:seed
 rails db:migrate
+rails s
 ```
 
 # 使用技術
