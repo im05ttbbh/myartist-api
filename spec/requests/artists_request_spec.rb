@@ -2,32 +2,25 @@ require 'rails_helper'
 
 RSpec.describe "Artists", type: :request do
   describe "API通信" do
-    # it "GETリクエスト" do
-    #   create_list(:artist, 10)
+    it "GETリクエスト" do
+      create_list(:artist, 10)
 
-    #   get "/artists"
-    #   json = JSON.parse(response.body)
-    #   expect(response.status).to eq(200)
-    #   expect(json['data'].length).to eq(10)
-    # end
-
-    it "POSTリクエスト" do
-      create(:artist)
-
-      post "/artists"
+      get "/artists"
       json = JSON.parse(response.body)
       expect(response.status).to eq(200)
       expect(json['data'].length).to eq(10)
-
-      # post artists_path, @params
-      # expect(response).to be_success
-      # expect(response.status).to eq 200
     end
 
-    # it "POSTリクエスト" do
-    #   artist_params = { artist: {genre_content: 'POPS', artist: "あいみょん"}  }
+    it "POSTリクエスト" do
+      post '/artists', 
+        params: { artist: {genre_content: 'POPS', artist: 'サザンオールスターズ'} }, 
+        headers: { 'ACCEPT' => 'application/json' }
+      expect(response).to have_http_status(:ok)
+    end
 
-    #   expect { post '/artists', params: { artist: artist_params } }.to change(Artist, :count).by(+1)
-    # end
+    it 'ユーザを登録する' do
+      artist_params = { artist: {genre_content: 'POPS', artist: 'サザンオールスターズ'} }
+      expect { post '/artists', params: { artist: artist_params} }.to change(Artist, :count).by(+1)
+    end
   end
 end
