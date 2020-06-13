@@ -1,12 +1,23 @@
 class ArtistsController < ApplicationController
   def index
-    return render json: { status: 200, message: '全てのアーティスト', data: Artist.all } unless params[:artist]
+    artists_data = Artist.joins(:genre)
+    .select("
+      artists.id,
+      content AS classification_of_genre,
+      artists.artist
+      ")
+    return render json: { status: 200, message: '全てのアーティスト', data: artists_data} unless params[:artist]
 
     genre = Genre.find_or_initialize_by(content: artist_params[:genre_content])
     artists = Artist.where(genre_id: genre.id)
-    
+    filter_data = artists.joins(:genre)
+    .select("
+      artists.id,
+      content AS classification_of_genre,
+      artists.artist
+      ")
     if Genre.exists?(content: artist_params[:genre_content])
-      render json: { status: 200, message: 'ジャンル名に合致するデータ', data: artists }
+      render json: { status: 200, message: 'ジャンル名に合致するデータ', data: filter_data }
     else
       render json: { status: 401, message: 'ジャンル登録がありません' }
     end
