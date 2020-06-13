@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :genre do
-    content { "MyString" }
+    sequence(:content) { |num| "genre_content_#{num}"}
   end
 end
